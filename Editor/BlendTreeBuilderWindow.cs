@@ -56,6 +56,8 @@ namespace DreadScripts.BlendTreeBulder
                 allActive = GetBoolState(_currentOptInfo.optBranches.Select(b => b.isActive));
             }
         }
+        public static BlendTreeBuilderData builderData;
+
         #endregion
 
         #region Input
@@ -240,8 +242,12 @@ namespace DreadScripts.BlendTreeBulder
                     DrawOptimizationWindow();
                     break;
                 case 1:
+                    /*
                     using (new TitledScope(toolbarOptions[1]))
                         EditorGUILayout.HelpBox("Under development!", MessageType.Info);
+                    */
+
+                    this.DrawBuilderWindow();
                     break;
             }
         }
@@ -476,7 +482,7 @@ namespace DreadScripts.BlendTreeBulder
             if (!condition) return;
             currentStep = 0;
             currentOptInfo = null;
-            if (throwError) throw new Exception("[BlendTree Buildter] Unhandled exception occured. Steps have been reset.");
+            if (throwError) throw new Exception("[BlendTree Builder] Unhandled exception occured. Steps have been reset.");
 
         }
 
@@ -491,8 +497,15 @@ namespace DreadScripts.BlendTreeBulder
             OnAvatarChanged();
         }
 
+        private void OnDestroy()
+        {
+            AssetDatabase.CreateAsset(builderData.SerializeBlendTreeData(BlendTreeBuilderWindow.avatar.gameObject), BlendTreeBuilderWindow.GENERATED_ASSETS_PATH + "/BlendTreeBuilderData.asset");
+
+        }
+
         #region Sub-Methods
         private static void AutoDetectAvatar() => avatar = avatar ? avatar : FindObjectOfType<VRCAvatarDescriptor>();
         #endregion
     }
+
 }
