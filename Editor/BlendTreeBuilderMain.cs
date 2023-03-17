@@ -11,9 +11,9 @@ namespace DreadScripts.BlendTreeBulder
 {
     public class BlendTreeBuilderMain
     {
+        public const string WEIGHTONE_PARAMETER_NAME = "BTB/One";
         private const string LAYER_ANYSTATE_IDENTIFIER = "BTB_MasterTree";
         private const string LAYER_NAME_IDENTIFIER = "BTB/MasterTree";
-        private const string WEIGHTONE_PARAMETER_NAME = "BTB/One";
         public static BlendTree GetMasterBlendTree(VRCAvatarDescriptor avi)
         {
             var fx = avi.GetPlayableLayer(VRCAvatarDescriptor.AnimLayerType.FX);

@@ -7,7 +7,6 @@ using static SeriBlendTreeBuilderData;
 
 public class BlendTreeBuilderData
 {
-
     public class MeshAndAttribute
     {
         public SkinnedMeshRenderer skinnedMeshRenderer;

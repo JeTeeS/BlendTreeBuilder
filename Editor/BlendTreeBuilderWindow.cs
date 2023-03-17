@@ -497,10 +497,9 @@ namespace DreadScripts.BlendTreeBulder
             OnAvatarChanged();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             AssetDatabase.CreateAsset(builderData.SerializeBlendTreeData(BlendTreeBuilderWindow.avatar.gameObject), BlendTreeBuilderWindow.GENERATED_ASSETS_PATH + "/BlendTreeBuilderData.asset");
-
         }
 
         #region Sub-Methods

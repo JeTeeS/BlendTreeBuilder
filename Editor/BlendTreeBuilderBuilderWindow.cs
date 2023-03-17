@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using static BlendTreeBuilderData;
 using static DreadScripts.BlendTreeBulder.BlendTreeBuilderHelper;
+using static BlendTreeBuilderBuilder;
 
 
 public static class BlendTreeBuilderBuilderWindow
@@ -92,7 +93,14 @@ public static class BlendTreeBuilderBuilderWindow
         }
         EditorGUILayout.EndVertical();
 
+        if (GUILayout.Button("GENERATE"))
+        {
+            AssetDatabase.CreateAsset(builderData.SerializeBlendTreeData(BlendTreeBuilderWindow.avatar.gameObject), BlendTreeBuilderWindow.GENERATED_ASSETS_PATH + "/BlendTreeBuilderData.asset");
+            BlendTreeBuilderBuild(builderData, BlendTreeBuilderWindow.avatar);
+        }
+        
 
+            
 
     }
 }
