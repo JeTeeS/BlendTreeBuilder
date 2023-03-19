@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Animations;
 using System.Linq;
-using static DreadScripts.BlendTreeBulder.BlendTreeBuilderHelper;
+using static DreadScripts.BlendTreeBuilder.BlendTreeBuilderHelper;
 
-namespace DreadScripts.BlendTreeBulder
+namespace DreadScripts.BlendTreeBuilder
 {
     public class BlendTreeBuilderMenuItem : EditorWindow
     {

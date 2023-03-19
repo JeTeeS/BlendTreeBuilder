@@ -4,12 +4,12 @@ using UnityEditor;
 using VRC.SDK3.Avatars.Components;
 using UnityEditor.Animations;
 using VRC.SDK3.Avatars.ScriptableObjects;
-using static DreadScripts.BlendTreeBulder.BlendTreeBuilderCustomGUI;
-using static DreadScripts.BlendTreeBulder.BlendTreeBuilderMain;
-using static DreadScripts.BlendTreeBulder.BlendTreeBuilderHelper;
+using static DreadScripts.BlendTreeBuilder.BlendTreeBuilderCustomGUI;
+using static DreadScripts.BlendTreeBuilder.BlendTreeBuilderMain;
+using static DreadScripts.BlendTreeBuilder.BlendTreeBuilderHelper;
 using System.Linq;
 
-namespace DreadScripts.BlendTreeBulder
+namespace DreadScripts.BlendTreeBuilder
 {
     public class BlendTreeBuilderWindow : EditorWindow
     {
@@ -56,7 +56,7 @@ namespace DreadScripts.BlendTreeBulder
                 allActive = GetBoolState(_currentOptInfo.optBranches.Select(b => b.isActive));
             }
         }
-        public static BlendTreeBuilderData builderData;
+        public static SeriBlendTreeBuilderData builderData;
 
         #endregion
 
@@ -495,11 +495,6 @@ namespace DreadScripts.BlendTreeBulder
         private void OnFocus()
         {
             OnAvatarChanged();
-        }
-
-        private void OnDisable()
-        {
-            AssetDatabase.CreateAsset(builderData.SerializeBlendTreeData(BlendTreeBuilderWindow.avatar.gameObject), BlendTreeBuilderWindow.GENERATED_ASSETS_PATH + "/BlendTreeBuilderData.asset");
         }
 
         #region Sub-Methods

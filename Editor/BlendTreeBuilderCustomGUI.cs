@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace DreadScripts.BlendTreeBulder
+namespace DreadScripts.BlendTreeBuilder
 {
     public static class BlendTreeBuilderCustomGUI
     {

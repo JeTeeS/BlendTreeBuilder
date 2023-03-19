@@ -5,9 +5,9 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 using VRC.SDK3.Avatars.Components;
-using static DreadScripts.BlendTreeBulder.BlendTreeBuilderHelper;
+using static DreadScripts.BlendTreeBuilder.BlendTreeBuilderHelper;
 
-namespace DreadScripts.BlendTreeBulder
+namespace DreadScripts.BlendTreeBuilder
 {
     public class BlendTreeBuilderMain
     {

@@ -4,9 +4,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor.Animations;
 using UnityEngine;
-using static DreadScripts.BlendTreeBulder.BlendTreeBuilderHelper;
+using static DreadScripts.BlendTreeBuilder.BlendTreeBuilderHelper;
 
-namespace DreadScripts.BlendTreeBulder
+namespace DreadScripts.BlendTreeBuilder
 {
     public class Branch
     {

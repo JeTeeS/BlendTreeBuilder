@@ -10,7 +10,7 @@ using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
 using Object = UnityEngine.Object;
 
-namespace DreadScripts.BlendTreeBulder
+namespace DreadScripts.BlendTreeBuilder
 {
     public static class BlendTreeBuilderHelper
     {
@@ -122,6 +122,22 @@ namespace DreadScripts.BlendTreeBulder
         {
             string regexFileReplace = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
             return string.IsNullOrEmpty(name) ? "Unnamed" : Regex.Replace(name, $@"[{regexFileReplace}]", "-");
+        }
+
+        internal static string GetPathToTransform(this Transform transform)
+        {
+            if (transform == null)
+            {
+                return string.Empty;
+            }
+
+            string path = transform.name;
+            while (transform.parent != null)
+            {
+                transform = transform.parent;
+                path = transform.name + "/" + path;
+            }
+            return path;
         }
         #endregion
 
