@@ -56,7 +56,7 @@ namespace DreadScripts.BlendTreeBuilder
                 allActive = GetBoolState(_currentOptInfo.optBranches.Select(b => b.isActive));
             }
         }
-        public static SeriBlendTreeBuilderData builderData;
+        public static BlendTreeBuilderData builderData;
 
         #endregion
 

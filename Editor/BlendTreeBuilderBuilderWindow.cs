@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using static DreadScripts.BlendTreeBuilder.BlendTreeBuilderHelper;
-using static DreadScripts.BlendTreeBuilder.SeriBlendTreeBuilderData;
+using static DreadScripts.BlendTreeBuilder.BlendTreeBuilderData;
 
 namespace DreadScripts.BlendTreeBuilder
 {
@@ -17,17 +17,17 @@ namespace DreadScripts.BlendTreeBuilder
 
             if (BlendTreeBuilderWindow.builderData == null)
             {
-                SeriBlendTreeBuilderData blendTreeBuilderData = AssetDatabase.LoadAssetAtPath<SeriBlendTreeBuilderData>(BlendTreeBuilderWindow.GENERATED_ASSETS_PATH + "/BlendTreeBuilderData.asset");
+                BlendTreeBuilderData blendTreeBuilderData = AssetDatabase.LoadAssetAtPath<BlendTreeBuilderData>(BlendTreeBuilderWindow.GENERATED_ASSETS_PATH + "/BlendTreeBuilderData.asset");
                 if (blendTreeBuilderData == null)
                 {
                     ReadyAssetPath(BlendTreeBuilderWindow.GENERATED_ASSETS_PATH, "BlendTreeBuilderData.asset");
-                    blendTreeBuilderData = ScriptableObject.CreateInstance<SeriBlendTreeBuilderData>();
+                    blendTreeBuilderData = ScriptableObject.CreateInstance<BlendTreeBuilderData>();
                     AssetDatabase.CreateAsset(blendTreeBuilderData, BlendTreeBuilderWindow.GENERATED_ASSETS_PATH + "/BlendTreeBuilderData.asset");
                 }
                 BlendTreeBuilderWindow.builderData = blendTreeBuilderData;
             }
 
-            SeriBlendTreeBuilderData builderData = BlendTreeBuilderWindow.builderData;
+            BlendTreeBuilderData builderData = BlendTreeBuilderWindow.builderData;
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             GUILayout.BeginHorizontal();
@@ -78,6 +78,9 @@ namespace DreadScripts.BlendTreeBuilder
                     Component component = (Component)toggleList.componentPathAndTypes[j].Lookup(avi);
 
                     EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+                    
+
                     EditorGUI.BeginChangeCheck();
                     component = (Component)EditorGUILayout.ObjectField(new GUIContent("Component"), component, typeof(Component), true);
                     if (EditorGUI.EndChangeCheck())
@@ -94,6 +97,9 @@ namespace DreadScripts.BlendTreeBuilder
                         }
                         EditorUtility.SetDirty(builderData);
                     }
+                    EditorGUI.BeginChangeCheck();
+                    toggleList.componentPathAndTypes[j].invertComponentToggle = EditorGUILayout.Toggle(new GUIContent("Invert On/Off"), toggleList.componentPathAndTypes[j].invertComponentToggle);
+                    if (EditorGUI.EndChangeCheck()) { EditorUtility.SetDirty(builderData); }
 
                     EditorGUILayout.EndVertical();
                 }
@@ -123,7 +129,6 @@ namespace DreadScripts.BlendTreeBuilder
 
 
                     EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-
                     EditorGUI.BeginChangeCheck();
                     skinnedMesh = (SkinnedMeshRenderer)EditorGUILayout.ObjectField(new GUIContent("Mesh " + (j + 1)), skinnedMesh, typeof(SkinnedMeshRenderer), true);
                     if (EditorGUI.EndChangeCheck())
@@ -140,15 +145,17 @@ namespace DreadScripts.BlendTreeBuilder
                     }
                     EditorGUI.BeginChangeCheck();
                     toggleList.meshAndAttributes[j].customMeshAttributes = EditorGUILayout.TextField(new GUIContent("Mesh Attribute"), toggleList.meshAndAttributes[j].customMeshAttributes);
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        EditorUtility.SetDirty(builderData);
-                    }
+                    if (EditorGUI.EndChangeCheck()) { EditorUtility.SetDirty(builderData); }
+
+                    EditorGUI.BeginChangeCheck();
+                    toggleList.meshAndAttributes[j].invertMeshToggle = EditorGUILayout.Toggle(new GUIContent("Invert On/Off"), toggleList.meshAndAttributes[j].invertMeshToggle);
+                    if (EditorGUI.EndChangeCheck()) { EditorUtility.SetDirty(builderData); }
 
                     GUILayout.EndVertical();
                 }
                 GUILayout.EndVertical();
                 EditorGUILayout.EndVertical();
+                
             }
             EditorGUILayout.EndVertical();
 

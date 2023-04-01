@@ -30,7 +30,7 @@ namespace DreadScripts.BlendTreeBuilder
             }
             return path.Substring(0, path.Length - 1);
         }
-        public static void BlendTreeBuilderBuild(SeriBlendTreeBuilderData blendTreeBuilderData, VRCAvatarDescriptor avi)
+        public static void BlendTreeBuilderBuild(BlendTreeBuilderData blendTreeBuilderData, VRCAvatarDescriptor avi)
         {
             var mainBlendTree = GetOrGenerateMasterBlendTree(avi);
 
@@ -44,13 +44,19 @@ namespace DreadScripts.BlendTreeBuilder
 
                 for (int j = 0; j < blendTreeBuilderData.togglesList[i].meshAndAttributes.Length; j++)
                 {
+                    
                     SkinnedMeshRenderer meshRenderer = blendTreeBuilderData.togglesList[i].meshAndAttributes[j].Lookup(avi.gameObject);
+                    if (meshRenderer == null)
+                    {
+                        Debug.LogError("No mesh renderer for toggle " + (i + 1).ToString() + " in slot " + (j + 1).ToString());
+                        continue;
+                    }
 
                     if (String.IsNullOrWhiteSpace(blendTreeBuilderData.togglesList[i].meshAndAttributes[j].customMeshAttributes))
                     {
                         if (String.IsNullOrWhiteSpace(toggleAnim.name))
                         {
-                            toggleAnim.name = meshRenderer.name + " BTBToggle";
+                            toggleAnim.name = meshRenderer.name + " Toggle";
                         }
                         AnimationCurve newAnimationCurve = AnimationCurve.Linear(0, 0, 1 / 60f, 1);
                         toggleAnim.SetCurve(getPathOfComponent(meshRenderer, avi.gameObject), typeof(SkinnedMeshRenderer), "m_Enabled", newAnimationCurve);
@@ -59,7 +65,7 @@ namespace DreadScripts.BlendTreeBuilder
                     {
                         if (String.IsNullOrWhiteSpace(toggleAnim.name))
                         {
-                            toggleAnim.name = meshRenderer.name + blendTreeBuilderData.togglesList[i].meshAndAttributes[j].customMeshAttributes + " BTBToggle";
+                            toggleAnim.name = meshRenderer.name + blendTreeBuilderData.togglesList[i].meshAndAttributes[j].customMeshAttributes + " Toggle";
                         }
                         AnimationCurve newAnimationCurve = AnimationCurve.Linear(0, 0, 1 / 60f, 100);
                         toggleAnim.SetCurve(getPathOfComponent(meshRenderer, avi.gameObject), typeof(SkinnedMeshRenderer), blendTreeBuilderData.togglesList[i].meshAndAttributes[j].customMeshAttributes, newAnimationCurve);
@@ -68,7 +74,7 @@ namespace DreadScripts.BlendTreeBuilder
                     {
                         if (String.IsNullOrWhiteSpace(toggleAnim.name))
                         {
-                            toggleAnim.name = meshRenderer.name + blendTreeBuilderData.togglesList[i].meshAndAttributes[j].customMeshAttributes + " BTBToggle";
+                            toggleAnim.name = meshRenderer.name + blendTreeBuilderData.togglesList[i].meshAndAttributes[j].customMeshAttributes + " Toggle";
                         }
                         AnimationCurve newAnimationCurve = AnimationCurve.Linear(0, 0, 1 / 60f, 1);
                         toggleAnim.SetCurve(getPathOfComponent(meshRenderer, avi.gameObject), typeof(SkinnedMeshRenderer), blendTreeBuilderData.togglesList[i].meshAndAttributes[j].customMeshAttributes, newAnimationCurve);
@@ -81,12 +87,13 @@ namespace DreadScripts.BlendTreeBuilder
                     Component toggleComponent = (Component)blendTreeBuilderData.togglesList[i].componentPathAndTypes[j].Lookup(avi.gameObject);
                     if (toggleComponent == null)
                     {
+                        Debug.LogError("No component for toggle " + (i +1).ToString() + " in slot " + (j + 1).ToString());
                         continue;
                     }
 
                     if (String.IsNullOrWhiteSpace(toggleAnim.name))
                     {
-                        toggleAnim.name = toggleComponent.name + " BTBToggle";
+                        toggleAnim.name = toggleComponent.name + " Toggle";
                     }
                     AnimationCurve newAnimationCurve = AnimationCurve.Linear(0, 0, 1 / 60f, 1);
 

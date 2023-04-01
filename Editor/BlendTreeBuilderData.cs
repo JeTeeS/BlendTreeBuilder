@@ -7,13 +7,14 @@ using UnityEngine;
 
 namespace DreadScripts.BlendTreeBuilder
 {
-    public class SeriBlendTreeBuilderData : ScriptableObject
+    public class BlendTreeBuilderData : ScriptableObject
     {
         [Serializable]
         public class MeshAndAttribute
         {
             public string skinnedMeshRendererPath;
             public string customMeshAttributes;
+            public bool invertMeshToggle;
 
             public SkinnedMeshRenderer Lookup(GameObject avatar)
             {
@@ -41,6 +42,8 @@ namespace DreadScripts.BlendTreeBuilder
         {
             public string componentPath;
             public string componentType;
+            public bool invertComponentToggle;
+
             public object Lookup(GameObject avatar)
             {
                 if (componentType == "" || componentType == null)
@@ -75,7 +78,7 @@ namespace DreadScripts.BlendTreeBuilder
         }
         public ToggleList[] togglesList;
 
-        public SeriBlendTreeBuilderData()
+        public BlendTreeBuilderData()
         {
             this.togglesList = new ToggleList[0];
         }
